@@ -15,14 +15,22 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from typing import TypedDict, List, Any
 from entity import Source, RagResponse, QueryDecomposition
 from langchain_community.document_loaders import DirectoryLoader, PyPDFLoader
-llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", google_api_key = "AIzaSyDZb9IUA-oMq41E6KTMBXjd-2KJiEjDq0A")
 from langgraph.graph import StateGraph, END
 import argparse
 from langchain_core.prompts import ChatPromptTemplate
+import os
+from dotenv import load_dotenv
 
+load_dotenv(0)
+
+
+
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", google_api_key = os.getenv(GOOGLE_API_KEY))
 
 structured_llm = llm.with_structured_output(schema=RagResponse)
 decomposition_llm = llm.with_structured_output(schema=QueryDecomposition)
+
+
 
 
 
